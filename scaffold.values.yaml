@@ -1,5 +1,6 @@
 copySecretJob:
-  enabled: false
+  enabled: true
+
 rekor:
   server:
     attestation_storage:
@@ -37,3 +38,16 @@ fulcio:
           ClientID: sigstore
           Type: email
           IssuerClaim: $.federated_claims.connector_id
+
+tuf:
+  enabled: true
+  ingress:
+    className: nginx
+    http:
+      hosts:
+        - host: tuf.sigstore.local
+          path: /
+    tls:
+      - secretName: tuf-tls
+        hosts:
+          - "tuf.sigstore.local"
